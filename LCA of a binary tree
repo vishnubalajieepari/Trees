@@ -1,0 +1,11 @@
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root || root==p || root==q)
+            return root;
+        TreeNode *l=lowestCommonAncestor(root->left,p,q);//finding leftmost leaf
+        TreeNode *r=lowestCommonAncestor(root->right,p,q);//finding rightmost leaf
+        if(!l)
+            return r;//if no left then return right
+        if(!r)
+            return l;//if no right then return left
+        return root;
+    }
