@@ -1,0 +1,23 @@
+void mode(TreeNode *root,unordered_map<int,int>&mp,int &c)
+    {
+        if(!root)
+            return;
+        mp[root->val]++;
+        c=max(c,mp[root->val]);
+        mode(root->left,mp,c);
+        mode(root->right,mp,c);
+    }
+    vector<int> findMode(TreeNode* root) {
+        unordered_map<int,int>mp;
+        int c=0;
+        mode(root,mp,c);
+        vector<int>res;
+        for(auto it:mp)
+        {
+            if(it.second==c)
+            {
+                res.push_back(it.first);
+            }
+        }
+        return res;
+    }
