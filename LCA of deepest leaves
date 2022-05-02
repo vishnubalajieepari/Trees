@@ -1,0 +1,39 @@
+int c=0,arr[1001]={0};
+    void levelorder(TreeNode *root)
+    {
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty())
+        {
+            int n=q.size();
+            c=n;
+            for(int i=0;i<n;i++)
+            {
+                TreeNode *node=q.front();
+                q.pop();
+                arr[i]=node->val;
+                if(node->left)
+                    q.push(node->left);
+                if(node->right)
+                    q.push(node->right);
+            }
+        }
+    }
+    TreeNode *lca(TreeNode *root,int a,int b)
+    {
+        if(!root || root->val==a|| root->val==b)
+            return root;
+        TreeNode *left=lca(root->left,a,b);
+        TreeNode *right=lca(root->right,a,b);
+        if(!left)
+            return right;
+        if(!right)
+            return left;
+        return root;
+    }
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        if(!root)
+            return NULL;
+        levelorder(root);
+        return lca(root,arr[0],arr[c-1]); // taking first and last leaves for finding lca
+    }
